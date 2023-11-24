@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    container_name: council_api
+    ports:
+      - 5432:5432
+    environment: 
+      - POSTGRES_DB=council
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+volumes:
+  dbdata:
+    name: api_pg_vol
