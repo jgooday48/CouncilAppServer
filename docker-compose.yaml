@@ -8,7 +8,7 @@ services:
     environment: 
       - POSTGRES_DB=council
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=
+      - POSTGRES_PASSWORD=jkljkl
     volumes:
       - dbdata:/var/lib/postgresql/data
 
