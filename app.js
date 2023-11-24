@@ -6,7 +6,6 @@ const logger = require('morgan')
 
 // const councilRoutes = require('./routes/')
 
-
 const app = express()
 
 // middleware
