@@ -5,7 +5,8 @@ const logger = require('morgan')
 
 
 // const councilRoutes = require('./routes/')
-
+const userRouter = require('./routers/user')
+const tokenRouter = require('./routers/token')
 const app = express()
 
 // middleware
@@ -15,6 +16,8 @@ app.use(logger('dev'))
 
 
 // app.use('/council', councilRoutes)
+app.use("/tokens",tokenRouter)
+app.use("/users", userRouter)
 
 app.get('/', (req, res) => {
     res.send({
