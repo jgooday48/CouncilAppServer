@@ -5,6 +5,8 @@ CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(30) UNIQUE NOT NULL,
     password CHAR(60) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    surname VARCHAR(100) NOT NULL,
     isAdmin BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (user_id)
 );
