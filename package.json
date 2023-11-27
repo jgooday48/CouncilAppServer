@@ -1,0 +1,28 @@
+{  
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This repo is the server side of a council app.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -L index.js",
+    "setup-db": "node ./database/setup.js",
+    "test": "jest --watchAll --detectOpenHandles --runInBand --verbose",
+    "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
+    "integrationTests": "jest --testPathPattern=/integration/ --watchAll --detectOpenHandles --runInBand --verbose",
+    "coverage": "jest --coverage --testPathPattern=/unit/"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.8.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
+  }
+}
