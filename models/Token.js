@@ -17,8 +17,15 @@ class Token {
 
     static async create(user_id) {
         const token = uuidv4();
-        const response = await db.query("INSERT INTO token (user_id, token) VALUES ($1, $2) RETURNING token_id;",
-            [user_id, token]);
+	let response;
+	const userExists = await db.query("SELECT * FROM token where user_id = $1",[user_id])
+	if(userExists.rows.length > 0){
+		response = await db.query("UPDATE token SET token = $2 WHERE user_id = $1 RETURNING token_id;",
+            	[user_id, token]);
+	}else{
+        	response = await db.query("INSERT INTO token (user_id, token) VALUES ($1, $2) RETURNING token_id;",
+            	[user_id, token]);
+	}
         const newId = response.rows[0].token_id;
         const newToken = await Token.getOneById(newId);
         return newToken;
