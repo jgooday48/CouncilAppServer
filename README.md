@@ -12,9 +12,9 @@ This is the repo for the backend of a council website
 - Replace username, password and port with your credentials and add a number to the bcrypt salt rounds
 - Open docker
 - If you do not have the postgres image on docker installed, run `docker pull postgres` in the console
-- Run `docker compose up -d`
-- Run `npm run setup-db`
-- Run `npm run dev`
+- Run `docker compose up -d` to run the container in the background
+- Run `npm run setup-db` to seed the database
+- Run `npm run dev` to start up the server
 - Once the server is running, see https://github.com/jgooday48/CouncilAppClient for the client side
 
 ## Technologies
