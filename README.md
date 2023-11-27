@@ -14,3 +14,8 @@ This is the repo for the backend of a council website
 - Run `docker compose up -d`
 - Run `npm run setup-db`
 - Run `npm run dev`
+- Once the server is running, see https://github.com/jgooday48/CouncilAppClient for the client side
+
+## Technologies
+- JavaScript
+- Express.js
