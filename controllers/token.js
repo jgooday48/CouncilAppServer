@@ -14,7 +14,7 @@ async function destroy(req, res) {
         const token = req.params.token;
         const tokenToRemove = await Token.getOneByToken(token);
         const result = await tokenToRemove.destroy();
-        res.status(200).json(result);
+        res.status(204).json(result);
     } catch (err) {
         res.status(404).json({ "error": err.message })
     }
