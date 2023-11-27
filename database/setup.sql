@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS share;
 DROP TABLE IF EXISTS marketplace_posts;
 DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS user_account;
@@ -22,6 +23,18 @@ CREATE TABLE token (
     FOREIGN KEY (user_id) REFERENCES user_account("user_id")
 );
 
+
+
+
+CREATE TABLE share (
+    post_id INT GENERATED ALWAYS AS IDENTITY,
+    -- user_id INT NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    content VARCHAR(100000) NOT NULL,
+    PRIMARY KEY (post_id)
+    -- FOREIGN KEY (user_id) REFERENCES user_account("user_id")
+
+);
 CREATE TABLE marketplace_posts (
     post_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,

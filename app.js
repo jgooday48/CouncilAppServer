@@ -4,7 +4,7 @@ const cors = require('cors')
 const logger = require('morgan')
 
 
-// const councilRoutes = require('./routes/')
+const postRouter = require('./routers/share')
 const userRouter = require('./routers/user')
 const tokenRouter = require('./routers/token')
 const postRouter = require("./routers/post")
@@ -16,7 +16,7 @@ app.use(cors())
 app.use(logger('dev'))
 
 
-// app.use('/council', councilRoutes)
+app.use('/posts', postRouter)
 app.use("/tokens",tokenRouter)
 app.use("/users", userRouter)
 app.use("/posts",postRouter)
