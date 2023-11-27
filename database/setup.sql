@@ -1,5 +1,7 @@
+DROP TABLE IF EXISTS share;
 DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS user_account;
+
 
 CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
@@ -23,13 +25,13 @@ CREATE TABLE token (
 
 
 
-CREATE TABLE share {
+CREATE TABLE share (
     post_id INT GENERATED ALWAYS AS IDENTITY,
-    user_id INT NOT NULL,
+    -- user_id INT NOT NULL,
     title VARCHAR(50) NOT NULL,
     content VARCHAR(100000) NOT NULL,
-    PRIMARY KEY (post_id),
-    FOREIGN KEY (user_id) REFERENCES user_account("user_id")
+    PRIMARY KEY (post_id)
+    -- FOREIGN KEY (user_id) REFERENCES user_account("user_id")
 
-};
+);
 
