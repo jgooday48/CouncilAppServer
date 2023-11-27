@@ -21,3 +21,15 @@ CREATE TABLE token (
 );
 
 
+
+
+CREATE TABLE share {
+    post_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    content VARCHAR(100000) NOT NULL,
+    PRIMARY KEY (post_id),
+    FOREIGN KEY (user_id) REFERENCES user_account("user_id")
+
+};
+
