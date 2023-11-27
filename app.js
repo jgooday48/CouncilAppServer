@@ -15,7 +15,7 @@ app.use(cors())
 app.use(logger('dev'))
 
 
-app.use('/post', postRouter)
+app.use('/posts', postRouter)
 app.use("/tokens",tokenRouter)
 app.use("/users", userRouter)
 

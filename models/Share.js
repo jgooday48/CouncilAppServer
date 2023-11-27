@@ -18,7 +18,7 @@ class Share {
     static async getOneById(id) {
         const response = await db.query("SELECT * FROM share WHERE post_id = $1", [id]);
         if (response.rows.length != 1) {
-            throw new Error("Unable to locate user.");
+            throw new Error("Unable to locate post.");
         }
         return new Share(response.rows[0]);
     }
