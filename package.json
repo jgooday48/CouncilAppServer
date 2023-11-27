@@ -1,4 +1,8 @@
-{
+{  
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This repo is the server side of a council app.",
+  "main": "index.js",
   "scripts": {
     "dev": "nodemon -L index.js",
     "setup-db": "node ./database/setup.js",
