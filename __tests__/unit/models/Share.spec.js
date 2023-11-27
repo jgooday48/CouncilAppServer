@@ -60,6 +60,48 @@ describe('Share', () => {
         })
       })
     
+
+      describe('create', () => {
+        it('resolves with post on successful db query', async () => {
+          let postData = { title: 'plum', content: 'rwgrgr' }
+          jest.spyOn(db, 'query')
+            .mockResolvedValueOnce({ rows: [] })
+    
+          jest.spyOn(db, 'query')
+            .mockResolvedValueOnce({ rows: [{ ...postData, post_id: 1 }] })
+    
+          const result = await Share.create(postData)
+          expect(result).toBeTruthy()
+          expect(result).toHaveProperty('id')
+          expect(result).toHaveProperty('title')
+        })
+    
+        it('should throw an Error on db query error', async () => {
+    
+          try {
+            await Share.create({ title: "plum" })
+          } catch (error) {
+            expect(error).toBeTruthy()
+            expect(error.message).toBe('content is missing')
+          }
+        })
+      })
+
+    
+      describe('destroy', () => {
+    
+        it('should throw an error if we cannot locate the post', async () => {
+          jest.spyOn(db, 'query')
+            .mockResolvedValueOnce({ rows: [{}, {}] })
+    
+          try {
+            const post = new Share({ title: 'plum', content: 'grrgrg'})
+            await post.destroy({ id: 72 })
+          } catch (error) {
+            expect(error).toBeTruthy()
+          }
+        })
+      })
 })
 
 

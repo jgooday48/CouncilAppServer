@@ -28,9 +28,9 @@ class Share {
         const { title, content } = data;
         let response = await db.query("INSERT INTO share (title, content) VALUES ($1, $2) RETURNING post_id;",
             [title, content]);
-        const newId = response.rows[0].post_id;
-        const newPost = await Share.getOneById(newId);
-        return newPost;
+        // const newId = response.rows[0].post_id;
+        // const newPost = await Share.getOneById(newId);
+        return new Share(response.rows[0]);
     }
 
     async update(data) {
