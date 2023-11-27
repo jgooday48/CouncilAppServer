@@ -11,6 +11,7 @@ This is the repo for the backend of a council website
 - Copy and paste DB_URL=postgres://username:password@localhost:port/, PORT=3000 and BCRYPT_SALT_ROUNDS= into the .env file
 - Replace username, password and port with your credentials and add a number to the bcrypt salt rounds
 - Open docker
+- If you do not have the postgres image on docker installed, run `docker pull postgres` in the console
 - Run `docker compose up -d`
 - Run `npm run setup-db`
 - Run `npm run dev`
