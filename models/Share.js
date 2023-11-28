@@ -4,7 +4,7 @@ const db = require('../database/connect');
 class Share {
     constructor(data) {
         this.id = data.post_id,
-        // this.user_id = data.user_id,
+        this.user_id = data.user_id,
         this.title = data.title,
         this.content = data.content        
     }
@@ -25,11 +25,15 @@ class Share {
 
 
     static async create(data) {
-        const { title, content } = data;
-        let response = await db.query("INSERT INTO share (title, content) VALUES ($1, $2) RETURNING post_id;",
-            [title, content]);
+        const { title, content, user_id } = data;
+        let response = await db.query("INSERT INTO share (user_id, title, content) VALUES ($1, $2, $3) RETURNING post_id;",
+            [ user_id,title, content]);
+            // console.log("User ID:", userId);
+
+        const newId = response.rows[0].post_id
+        const newPost = await Post.getOneById(newId)
             
-        return new Share(response.rows[0]);
+        return newPost;
     }
 
     async update(data) {

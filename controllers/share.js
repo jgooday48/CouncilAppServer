@@ -1,4 +1,6 @@
 const Share = require('../models/Share');
+const Token = require('../models/Token')
+const User = require('../models/User')
 
 async function index (req, res) {
     try {
@@ -12,7 +14,9 @@ async function index (req, res) {
 async function create (req, res) {
     try {
         const data = req.body;
-        const result = await Share.create(data);
+        const userToken = req.headers['authorization'];
+        const token = await Token.getOneByToken(userToken);
+        const result = await Share.create({...data, user_id: token.user_id});
         res.status(201).send(result);
     } catch (err) {
         res.status(400).json({"error": err.message})
@@ -47,10 +51,22 @@ async function update(req,res) {
 async function destroy (req, res) {
     try {
         const id = parseInt(req.params.id);
+        const userToken = req.headers['authorization'];
+        const token = await Token.getOneByToken(userToken);
+        const user = await User.getOneById(token.user_id);
         
         const post = await Share.getOneById(id);
-        const result = await post.destroy();
+
         res.status(204).end();
+
+        if (post.user_id === user.id) {
+            const result = await post.destroy();
+            res.status(204).end();
+          } else {
+            res.status(403).json({
+              error: 'You must be an admin or the entry author to delete the entry!'
+            });
+          }
     } catch (err) {
         res.status(404).json({"error": err.message})
     }
