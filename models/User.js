@@ -11,6 +11,8 @@ class User {
         this.isAdmin = data.is_admin;
     }
 
+    
+
     static async getOneById(id) {
         const response = await db.query("SELECT * FROM user_account WHERE user_id = $1", [id]);
         if (response.rows.length != 1) {
@@ -29,7 +31,7 @@ class User {
 
     static async create(data) {
         const { email, password, name, surname } = data;
-        let response = await db.query("INSERT INTO user_account (email, password,name, surname) VALUES ($1, $2,$3, $4) RETURNING user_id;",
+        let response = await db.query("INSERT INTO user_account (email, password, name, surname) VALUES ($1, $2,$3, $4) RETURNING user_id;",
             [email, password, name, surname]);
         const newId = response.rows[0].user_id;
         const newUser = await User.getOneById(newId);

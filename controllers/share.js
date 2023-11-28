@@ -3,7 +3,7 @@ const Share = require('../models/Share');
 async function index (req, res) {
     try {
         const posts = await Share.getAll();
-        res.json(posts);
+        res.status(200).json(posts);
     } catch (err) {
         res.status(500).json({"error": err.message})
     }
@@ -23,7 +23,7 @@ async function show (req, res) {
     try {
         const id = parseInt(req.params.id);
         const post = await Share.getOneById(id);
-        res.json(post);
+        res.status(200).json(post);
     } catch (err) {
         res.status(404).json({"error": err.message})
     }
@@ -47,6 +47,7 @@ async function update(req,res) {
 async function destroy (req, res) {
     try {
         const id = parseInt(req.params.id);
+        
         const post = await Share.getOneById(id);
         const result = await post.destroy();
         res.status(204).end();
