@@ -58,7 +58,7 @@ describe('share controller', () => {
         //   expect(mockSend).toHaveBeenCalledWith({ data: new Share(testShare) })
         })
     
-        it('sends an error upon fail', async () => {
+        it('sends an error if it cant find a post', async () => {
           jest.spyOn(Share, 'getOneById')
             .mockRejectedValue(new Error('oh no'))
     

@@ -11,6 +11,8 @@ class User {
         this.isAdmin = data.is_admin;
     }
 
+    
+
     static async getOneById(id) {
         const response = await db.query("SELECT * FROM user_account WHERE user_id = $1", [id]);
         if (response.rows.length != 1) {

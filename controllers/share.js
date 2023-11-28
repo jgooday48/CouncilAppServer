@@ -47,6 +47,7 @@ async function update(req,res) {
 async function destroy (req, res) {
     try {
         const id = parseInt(req.params.id);
+        
         const post = await Share.getOneById(id);
         const result = await post.destroy();
         res.status(204).end();
