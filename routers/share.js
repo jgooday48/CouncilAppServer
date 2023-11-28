@@ -1,15 +1,15 @@
 const { Router } = require('express');
 
 const authenticator = require("../middleware/authenticator");
-const postController = require('../controllers/share.js');
+const shareController = require('../controllers/share.js');
 
-const postRouter = Router();
+const shareRouter = Router();
 
-postRouter.get("/", postController.index);
-// postRouter.get("/",postController.index);
-postRouter.post("/", postController.create);
-postRouter.get("/:id", postController.show);
-postRouter.patch("/:id",postController.update);
-postRouter.delete("/:id", postController.destroy);
+shareRouter.get("/", shareController.index);
 
-module.exports = postRouter;
+shareRouter.post("/", shareController.create);
+shareRouter.get("/:id", shareController.show);
+shareRouter.patch("/:id",shareController.update);
+shareRouter.delete("/:id", shareController.destroy);
+
+module.exports = shareRouter;

@@ -40,6 +40,7 @@ async function update(req,res) {
         const data = req.body
         const postToUpdate = await Share.getOneById(id)
         const updatedPost = await postToUpdate.update(data)
+        
         res.status(200).send(updatedPost)
         
     } catch (err) {
@@ -57,7 +58,7 @@ async function destroy (req, res) {
         
         const post = await Share.getOneById(id);
 
-        res.status(204).end();
+        // res.status(204).end();
 
         if (post.user_id === user.id) {
             const result = await post.destroy();
