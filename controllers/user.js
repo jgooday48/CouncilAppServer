@@ -14,8 +14,9 @@ async function register (req, res) {
         data["password"] = await bcrypt.hash(data["password"], salt);
 
         const result = await User.create(data);
+        // const newUser = await User.getOneByEmail(data.email);
 
-        res.status(201).send(result);
+        res.status(201).json(result);
     } catch (err) {
         res.status(400).json({"error": err.message})
     }
@@ -24,7 +25,7 @@ async function register (req, res) {
 async function login (req, res) {
     const data = req.body;
     try {
-        const user = await User.getOneByUsername(data.username);
+        const user = await User.getOneByEmail(data.email);
         console.log("User", user)
         const authenticated = await bcrypt.compare(data.password, user["password"]);
         console.log("Authentificated", authenticated)
