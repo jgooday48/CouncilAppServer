@@ -64,7 +64,7 @@ async function destroy (req, res) {
             res.status(204).end();
           } else {
             res.status(403).json({
-              error: 'You must be an admin or the entry author to delete the entry!'
+              error: 'You cant delete this'
             });
           }
     } catch (err) {
