@@ -7,6 +7,7 @@ const logger = require('morgan')
 const postRouter = require('./routers/share')
 const userRouter = require('./routers/user')
 const tokenRouter = require('./routers/token')
+const postsRouter = require("./routers/post")
 const app = express()
 
 // middleware
@@ -18,6 +19,7 @@ app.use(logger('dev'))
 app.use('/posts', postRouter)
 app.use("/tokens",tokenRouter)
 app.use("/users", userRouter)
+app.use("/post",postsRouter)
 
 app.get('/', (req, res) => {
     res.send({
