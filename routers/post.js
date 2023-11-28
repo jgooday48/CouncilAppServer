@@ -5,7 +5,7 @@ const authenticator = require('../middleware/authenticator.js');
 
 const postRouter = Router();
 
-postRouter.get("/", authenticator, postController.index);//get all
+postRouter.get("/", postController.index);//get all
 postRouter.get("/id/:id", postController.show);//get by name
 //postRouter.get("/user/:name", postController.byUser);//get by user_name
 postRouter.post("/", postController.create);//create post
