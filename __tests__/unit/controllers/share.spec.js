@@ -20,7 +20,7 @@ describe('share controller', () => {
 
     describe('index', () => {
         it('should return share posts with a status code 200', async () => {
-          const testShare = ['po1', 'g2']
+          const testShare = ['p1', 'p2']
           jest.spyOn(Share, 'getAll')
             .mockResolvedValue(testShare)
     
