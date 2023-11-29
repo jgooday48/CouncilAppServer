@@ -16,6 +16,13 @@ async function show(req, res) {
     try {
         const id = parseInt(req.params.id);
         const post = await Post.getOneById(id);
+        const user_id = post.user_id;
+        const user = await User.getOneById(user_id)
+        const { email: user_email, name: user_name } = user;
+
+        // Merging user properties into the post object
+        post.user_email = user_email;
+        post.user_name = user_name;
         res.status(200).json(post);
     } catch (err) {
         res.status(404).json({ "error": err.message })
