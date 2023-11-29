@@ -20,7 +20,7 @@ describe('share controller', () => {
 
     describe('index', () => {
         it('should return share posts with a status code 200', async () => {
-          const testShare = ['g1', 'g2']
+          const testShare = ['po1', 'g2']
           jest.spyOn(Share, 'getAll')
             .mockResolvedValue(testShare)
     
@@ -55,17 +55,17 @@ describe('share controller', () => {
           await shareController.show(mockReq, mockRes)
           expect(Share.getOneById).toHaveBeenCalledTimes(1)
           expect(mockStatus).toHaveBeenCalledWith(200)
-        //   expect(mockSend).toHaveBeenCalledWith({ data: new Share(testShare) })
+
         })
     
         it('sends an error if it cant find a post', async () => {
           jest.spyOn(Share, 'getOneById')
-            .mockRejectedValue(new Error('oh no'))
+            .mockRejectedValue(new Error('cant find post'))
     
           await shareController.show(mockReq, mockRes)
           expect(Share.getOneById).toHaveBeenCalledTimes(1)
           expect(mockStatus).toHaveBeenCalledWith(404)
-        //   expect(mockSend).toHaveBeenCalledWith({ error: 'oh no' })
+
         })
       })
 
