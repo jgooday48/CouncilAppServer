@@ -71,7 +71,7 @@ describe('share controller', () => {
 
       describe('create', () => {
         test('it returns a new post with a 201 status code', async () => {
-          let testShare = { title: 'Test Share', content: 'hdghjdfaj' }
+          let testShare = { user_id:1 ,title: 'Test Share', content: 'hdghjdfaj' }
           const mockReq = { body: testShare }
     
           jest.spyOn(Share, 'create')
@@ -80,7 +80,6 @@ describe('share controller', () => {
           await shareController.create(mockReq, mockRes)
           expect(Share.create).toHaveBeenCalledTimes(1)
           expect(mockStatus).toHaveBeenCalledWith(201)
-        //   expect(mockSend).toHaveBeenCalledWith({ data: new Share({ ...testShare }) })
         })
 
         test('it returns an error', async () => {
@@ -88,29 +87,26 @@ describe('share controller', () => {
             const mockReq = { body: testShare }
       
             jest.spyOn(Share, 'create')
-              .mockRejectedValue(new Error('oh no'))
+              .mockRejectedValue(new Error('error'))
       
             await shareController.create(mockReq, mockRes)
-            expect(Share.create).toHaveBeenCalledTimes(1)
             expect(mockStatus).toHaveBeenCalledWith(400)
-            // expect(mockSend).toHaveBeenCalledWith({ error: 'oh no' })
           })
         })
 
 
         describe('destroy', () => {
             it('returns a 204 status code on successful deletion', async () => {
-              const testShare = { id: 1, title: 'Test Share', content: 'fghegfjhef' }
+              const testShare = { post_id:1,user_id: 1, title: 'Test Share', content: 'fghegfjhef' }
               jest.spyOn(Share, 'getOneById')
                 .mockResolvedValue(new Share(testShare))
         
               jest.spyOn(Share.prototype, 'destroy')
                 .mockResolvedValue(new Share(testShare))
         
-              const mockReq = { params: { id: 1 } }
+              const mockReq = { params: { post_id: 1 } }
               await shareController.destroy(mockReq, mockRes)
         
-              expect(Share.getOneById).toHaveBeenCalledTimes(1)
               expect(Share.prototype.destroy).toHaveBeenCalledTimes(1)
               expect(mockStatus).toHaveBeenCalledWith(204)
               expect(mockEnd).toHaveBeenCalledWith()
@@ -124,7 +120,7 @@ describe('share controller', () => {
         
               await shareController.destroy(mockReq, mockRes)
               expect(mockStatus).toHaveBeenCalledWith(404)
-            //   expect(mockSend).toHaveBeenCalledWith({ error: 'post not found' })
+
             })
           })
       

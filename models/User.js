@@ -33,6 +33,7 @@ class User {
         const { email, password, name, surname } = data;
         let response = await db.query("INSERT INTO user_account (email, password, name, surname) VALUES ($1, $2,$3, $4) RETURNING user_id;",
             [email, password, name, surname]);
+            
         const newId = response.rows[0].user_id;
         const newUser = await User.getOneById(newId);
         return newUser;
