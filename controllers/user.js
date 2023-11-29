@@ -41,6 +41,19 @@ async function login (req, res) {
     }
 }
 
+
+const logout = async (req, res) => {
+    try {
+      const userToken = req.headers['authorization'];
+      const token = await Token.getOneByToken(userToken);
+  
+      const result = await token.destroy();
+      res.status(200).send(result);
+    } catch (e) {
+      res.status(400).json({ error: e.message });
+    }
+  };
+
 module.exports = {
-    register, login
+    register, login, logout
 }                           
