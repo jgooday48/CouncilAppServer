@@ -16,7 +16,7 @@ app.use(cors())
 app.use(logger('dev'))
 
 
-app.use('/share', shareRouter)
+app.use('/posts', shareRouter)
 app.use("/tokens",tokenRouter)
 app.use("/users", userRouter)
 app.use("/post",postsRouter)
