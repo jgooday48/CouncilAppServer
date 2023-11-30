@@ -72,8 +72,13 @@ VALUES
 INSERT INTO marketplace_posts (post_name, user_id, conditions, description, location, price)
 VALUES
     ('Table for Sale', 1, 'Excellent condition', 'Solid wood dining table', '123 Oak Street, Florin', 350.00),
-    ('Bike for Sale', 2, 'Like new', 'Mountain bike, 21 gears', '456 Maple Avenue, Florin', 250.50),
-    ('Part-time Job: Tutoring', 3, 'Flexible hours', 'Math and Science tutoring services', '789 Pine Street, Florin', 30.00);
+    ('Bike for Sale', 2, 'Like new', 'Mountain bike, 21 gears', '456 Maple Avenue, Florin', 250.50), 
+    ('Acoustic Guitar', 1, 'Like new', 'Beautiful 6-string acoustic guitar in excellent condition. Comes with a sturdy case for easy transportation.', '123 Oak Street, Florin', 180.00),
+    ('Canon DSLR Camera', 2, 'Excellent condition', 'High-quality 18MP DSLR camera with lens kit. Perfect for photography enthusiasts and professionals.', '456 Maple Avenue, Florin', 420.00),
+    ('Smartwatch', 3, 'Slightly used', 'Fitness tracker smartwatch in good working order. Monitors health and activity levels for an active lifestyle.', '789 Pine Street, Florin', 90.00),
+    ('Mountain Bike', 1, 'Good condition', 'Reliable 24-speed mountain bike suitable for various terrains. Ideal for outdoor adventures and cycling enthusiasts.', '321 Elm Street, Florin', 250.00),
+    ('Coffee Maker', 2, 'Used', 'Convenient programmable drip coffee machine. Perfect for brewing your favorite coffee blends at home.', '567 Birch Road, Florin', 40.00);
+
 
 INSERT INTO book (user_id, author, title, content, link)
 VALUES

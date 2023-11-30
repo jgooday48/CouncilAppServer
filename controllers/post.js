@@ -20,7 +20,6 @@ async function show(req, res) {
         const user = await User.getOneById(user_id)
         const { email: user_email, name: user_name } = user;
 
-        // Merging user properties into the post object
         post.user_email = user_email;
         post.user_name = user_name;
         res.status(200).json(post);
@@ -29,14 +28,6 @@ async function show(req, res) {
     }
 };
 
-async function byUser(req, res) {//turn to byUser
-    try {
-        const post = await Post.getTopSnack();
-        res.status(200).json(post);
-    } catch (err) {
-        res.status(404).json({ "error": err.message })
-    }
-};
 
 async function create(req, res) {
     try {
@@ -58,7 +49,6 @@ async function update(req, res) {
         const userToken = req.headers["authorization"];
         const data = req.body;
         let validToken;
-        //check if token belongs user_id in the post
         validToken = await Token.getOneByToken(userToken);
         const post = await Post.getOneById(id);
         if(validToken.user_id === post.user_id){
@@ -93,5 +83,5 @@ async function destroy(req, res) {
 };
 
 module.exports = {
-    index, show, byUser, create, update, destroy
+    index, show, create, update, destroy
 };
