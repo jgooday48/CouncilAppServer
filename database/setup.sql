@@ -74,6 +74,17 @@ VALUES
 
 INSERT INTO book (user_id, author, title, content, link)
 VALUES
-    (1, 'password123', 'John', 'Doe', ''),
-    (2, 'securePass', 'Alice', 'Smith', ''),
-    (3, 'mySecretPwd', 'Bob', 'Johnson', '');
+    (1, 'John Steinbeck', 'Of Mice and Men', 
+    'During the Great Depression in California, two migrant field workers -
+    George Milton, an intelligent but uneducated man, and Lennie Small, a bulky,
+    strong but mentally disabled man - are on their way from Soledad to another
+    part of the state. They hope to one day attain the dream of settling down on
+    their own piece of land. Lennies part of the dream is merely to care for and
+    pet rabbits on the farm, as he loves touching soft animals, although he always
+    accidentally kills them by petting them too hard. This dream is one of Lennies
+    favorite stories, which George constantly retells.', 
+    './assets/images/book1.jpg'),
+    (2, 'Louis Sacher', 'Holes', 'Stanley Yelnats IV is wrongfully convicted of
+    theft and as a consequence is sent to Camp Green Lake, a juvenile
+    corrections facility.',
+    './assets/images/book2.png');
