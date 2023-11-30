@@ -13,3 +13,4 @@ shareRouter.patch("/:id",shareController.update);
 shareRouter.delete("/:id", shareController.destroy);
 
 module.exports = shareRouter;
+
