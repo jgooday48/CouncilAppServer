@@ -8,7 +8,7 @@ const mockEnd = jest.fn()
 // we are mocking .send(), .json() and .end()
 const mockStatus = jest.fn(code => ({ send: mockSend, json: mockJson, end: mockEnd }))
 const mockRes = { status: mockStatus }
-
+const { generateToken } = require('../../../middleware/authenticator')
 describe('share controller', () => {
     beforeEach(() => jest.clearAllMocks())
   
@@ -41,10 +41,10 @@ describe('share controller', () => {
         })
       })
 
-      describe('show', () => {
+      describe('get one by id', () => {
         let testShare, mockReq
         beforeEach(() => {
-          testShare = { id: 1, title: 'Test share', content: 'fhefkjewf' }
+          testShare = { id: 1, post_id:1,title: 'Test share', content: 'fhefkjewf' }
           mockReq = { params: { id: 1 } }
         })
     
@@ -71,6 +71,18 @@ describe('share controller', () => {
 
       describe('create', () => {
 
+        test('it returns a new dog with a 201 status code', async () => {
+          let testGoat = { name: 'Test Dog', age: 2 }
+          const mockReq = { body: testGoat }
+    
+          jest.spyOn(Share, 'create')
+            .mockResolvedValue(new Share(testGoat))
+    
+          await shareController.create(mockReq, mockRes)
+          expect(Share.create).toHaveBeenCalledTimes(1)
+          expect(mockStatus).toHaveBeenCalledWith(201)
+          expect(mockSend).toHaveBeenCalledWith({ data: new Goat({ ...testGoat }) })
+        })
 
         test('it returns an error', async () => {
             let testShare = { name: 'Test Share' }
@@ -84,6 +96,56 @@ describe('share controller', () => {
           })
         })
 
+        describe('update', () => {
+          it('modifies a row in the database', async () => {
+            const testShare = { id: 22, title: 'Test', content: 22 }
+            jest.spyOn(Share, 'getOneById')
+              .mockResolvedValue(new Share(testShare))
+      
+            const mockReq = { params: { id: 22 }, body: { name: 'plum' } }
+      
+            jest.spyOn(Share.prototype, 'update')
+              .mockResolvedValue({ ...new Share(testGoat), name: 'plum' })
+      
+            await shareController.update(mockReq, mockRes)
+      
+      
+            expect(Share.getOneById).toHaveBeenCalledTimes(1)
+            expect(Share.prototype.update).toHaveBeenCalledTimes(1)
+            expect(mockStatus).toHaveBeenCalledWith(200)
+            expect(mockSend).toHaveBeenCalledWith({ data: new Share({ id: 22, name: 'plum', age: 22 }) })
+          })
+        })
+      
+        describe('destroy', () => {
+          it('returns a 204 status code on successful deletion', async () => {
+            const testGoat = { id: 1, name: 'Test goat', age: 22 }
+            jest.spyOn(Share, 'getOneById')
+              .mockResolvedValue(new Share(testGoat))
+      
+            jest.spyOn(Share.prototype, 'destroy')
+              .mockResolvedValue(new Share(testGoat))
+      
+            const mockReq = { params: { id: 1 } }
+            await shareController.destroy(mockReq, mockRes)
+      
+
+            expect(Share.prototype.destroy).toHaveBeenCalledTimes(1)
+            expect(mockStatus).toHaveBeenCalledWith(204)
+            expect(mockEnd).toHaveBeenCalledWith()
+          })
+      
+          it('calls goat.destroy()', async () => {
+            const mockReq = { params: { id: 49 } }
+      
+            jest.spyOn(Share, 'getOneById')
+              .mockRejectedValue(new Error('goat not found'))
+      
+            await shareController.destroy(mockReq, mockRes)
+            expect(mockStatus).toHaveBeenCalledWith(404)
+
+          })
+        })
 
 
       

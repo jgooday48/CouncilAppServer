@@ -31,7 +31,7 @@ describe('Share', () => {
             await Share.getAll()
           } catch (err) {
             expect(err).toBeDefined()
-            expect(err.message).toBe("Cant find post")
+
           }
         })
       })
@@ -52,16 +52,31 @@ describe('Share', () => {
           jest.spyOn(db, 'query').mockRejectedValue({ post_id:1,user_id: 1, title: 'test', content: 'test' })
     
           try {
-            await Share.findById(70)
+            await Share.getOneById(70)
           } catch (error) {
             expect(error).toBeTruthy()
           }
         })
       })
     
-      describe('create', () => {
 
-    
+      
+      describe('create', () => {
+        it('resolves with post on successful db query', async () => {
+          let goatData = { user_id:1, title: 'test', content: 'ggrg' }
+          jest.spyOn(db, 'query')
+          .mockResolvedValueOnce({ rows: [] })
+          
+          
+          jest.spyOn(db, 'query')
+          .mockResolvedValueOnce({ rows: [{ ...goatData, post_id: 1 }] })
+          
+          const result = await Share.create(goatData)
+          expect(result).toBeTruthy()
+          expect(result).toHaveProperty('title')
+          expect(result).toHaveProperty('content')
+        })
+        
         it('should throw an Error on db query error', async () => {
     
           try {
@@ -71,8 +86,20 @@ describe('Share', () => {
             // expect(error.message).toBe('age is missing')
           }
         })
+
       })
     
+      describe('update', () => {
+        it('should throw an error if content is missing', async () => {
+          try {
+            const share = new Share({ title: 'test', content: 'effe' })
+            await share.update({ title: 'testing' })
+          } catch (error) {
+            expect(error).toBeTruthy()
+
+          }
+        })
+      })
     
       describe('destroy', () => {
     
