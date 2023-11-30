@@ -60,24 +60,24 @@ describe('User', () => {
 
 
       describe('create', () => {
-        it.skip('resolves with user on successful db query', async () => {
-          let goatData = {  id:1,name:'test', surname:'test',email: 'plum', password: 99 }
+        it('resolves with user on successful db query', async () => {
+          let userData = {name:'test', surname:'test',email: 'test', password: 99 }
           jest.spyOn(db, 'query')
             .mockResolvedValueOnce({ rows: [] })
     
           jest.spyOn(db, 'query')
-            .mockResolvedValueOnce({ rows: [{ ...goatData, id: 1 }] })
+            .mockResolvedValueOnce({ rows: [{ ...userData }] })
     
-          const result = await User.create(goatData)
+          const result = await User.create(userData)
           expect(result).toBeTruthy()
           expect(result).toHaveProperty('id')
           expect(result).toHaveProperty('name')
         })
     
-        it.skip('should throw an Error on db query error', async () => {
+        it('should throw an Error on db query error', async () => {
     
           try {
-            await User.create({ name: "plum" })
+            await User.create({ name: "test" })
           } catch (error) {
             expect(error).toBeTruthy()
  

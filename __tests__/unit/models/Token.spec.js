@@ -45,23 +45,22 @@ describe('Token', () => {
       const result = await Token.getOneById(1)
       expect(result).toBeInstanceOf(Token)
       // expect(result.name).toBe('post')
-      // expect(result.post_id).toBe(1)
+      expect(result.token_id).toBe(1)
     })
 
-    it('throws an error', async () => {
-      jest.spyOn(db, 'query')
-      .mockResolvedValueOnce({ rows: [] })
+    it('should throw an Error on db query error', async () => {
+      jest.spyOn(db, 'query').mockRejectedValue({ token_id:1,user_id: 1, token: 'wffefw'})
 
-    try {
-      await Token.getAll()
-    } catch (err) {
-      expect(err).toBeDefined()
-    }
-
+      try {
+        await Token.getOneById(70)
+      } catch (error) {
+        expect(error).toBeTruthy()
+      }
+      })
 
     })
 
-  })
+
 
   describe('getOneByToken', () => {
     it('resolves with token on successful db query', async () => {
@@ -72,7 +71,7 @@ describe('Token', () => {
       const result = await Token.getOneByToken('&gjhegjfv')
       expect(result).toBeInstanceOf(Token)
       // expect(result.name).toBe('post')
-      // expect(result.post_id).toBe(1)
+      expect(result.token_id).toBe(1)
     })
 
   })
@@ -99,6 +98,7 @@ describe('Token', () => {
     
         db.query.mockRestore();
       });
+
       it('throws an error', async () => {
         jest.spyOn(db, 'query').mockResolvedValue({
           rows: [{ token_id: 1, user_id: 1, token: 'test' }],

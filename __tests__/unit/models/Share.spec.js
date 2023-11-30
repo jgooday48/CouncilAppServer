@@ -36,7 +36,28 @@ describe('Share', () => {
         })
       })
 
-
+      describe('getOneById', () => {
+        it('resolves with user on successful db query', async () => {
+          let testUser = { post_id:1,user_id: 1, title: 'test', content: 'test' }
+          jest.spyOn(db, 'query')
+            .mockResolvedValueOnce({ rows: [testUser] })
+    
+          const result = await Share.getOneById(1)
+          expect(result).toBeInstanceOf(Share)
+          expect(result.title).toBe('test')
+          expect(result.id).toBe(1)
+        })
+    
+        it('should throw an Error on db query error', async () => {
+          jest.spyOn(db, 'query').mockRejectedValue({ post_id:1,user_id: 1, title: 'test', content: 'test' })
+    
+          try {
+            await Share.findById(70)
+          } catch (error) {
+            expect(error).toBeTruthy()
+          }
+        })
+      })
     
       describe('create', () => {
 
