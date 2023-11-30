@@ -15,7 +15,6 @@ CREATE TABLE user_account (
     PRIMARY KEY (user_id)
 );
 
-
 CREATE TABLE token (
     token_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
@@ -23,9 +22,6 @@ CREATE TABLE token (
     PRIMARY KEY (token_id),
     FOREIGN KEY (user_id) REFERENCES user_account("user_id")
 );
-
-
-
 
 CREATE TABLE share (
     post_id INT GENERATED ALWAYS AS IDENTITY,
