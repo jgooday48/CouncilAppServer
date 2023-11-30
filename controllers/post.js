@@ -43,12 +43,8 @@ async function create(req, res) {
         const userToken = req.headers["authorization"];
         const data = req.body;
 
-        if (userToken == "null") {
-            throw new Error("User not authenticated.");
-        } else {
-            const validToken = await Token.getOneByToken(userToken);
-            data.user_id = validToken.user_id;
-        }
+        const validToken = await Token.getOneByToken(userToken);
+        data.user_id = validToken.user_id;
         const newPost = await Post.create(data);
         res.status(201).json(newPost);
     } catch (err) {
@@ -63,15 +59,11 @@ async function update(req, res) {
         const data = req.body;
         let validToken;
         //check if token belongs user_id in the post
-        if (userToken == "null") {
-            throw new Error("User not authenticated.");
-        } else {
-            validToken = await Token.getOneByToken(userToken);
-        }
+        validToken = await Token.getOneByToken(userToken);
         const post = await Post.getOneById(id);
         if(validToken.user_id === post.user_id){
-        const result = await post.update(data);
-        res.status(200).json(result);
+            const result = await post.update(data);
+            res.status(200).json(result);
         }else {
             res.status(403).json({ "message": "you aren't allowed to modify this post"});
         }
@@ -85,19 +77,15 @@ async function destroy(req, res) {
         const userToken = req.headers["authorization"];
         const id = parseInt(req.params.id);
         let validToken;
-        if (userToken == "null") {
-            throw new Error("User not authenticated.");
-        } else {
-            validToken = await Token.getOneByToken(userToken);
-        }
+        validToken = await Token.getOneByToken(userToken);
         const userPosting = await User.getOneById(validToken.user_id);
         const post = await Post.getOneById(id);
         if(validToken.user_id === post.user_id || userPosting.isAdmin === "TRUE")
         {
-        const result = await post.destroy();
-        res.status(200).json(result);
+            const result = await post.destroy();
+            res.status(204).end();
         }else {
-            res.status(403).json({ "message": "you aren't allowed to modify this post"});
+        res.status(403).json({ "message": "you aren't allowed to modify this post"});
         }
     } catch (err) {
         res.status(404).json({ "error": err.message })
