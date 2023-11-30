@@ -7,7 +7,8 @@ class Book {
         this.user_id = data.user_id,
         this.title = data.title,
         this.author = data.author,
-        this.content = data.content        
+        this.content = data.content,
+        this.link = data.link
     }
 
     static async getAll() {
@@ -26,9 +27,9 @@ class Book {
 
 
     static async create(data) {
-        const { title, author, content, user_id } = data;
-        let response = await db.query("INSERT INTO book (user_id, title, author, content) VALUES ($1, $2, $3, $4) RETURNING post_id;",
-            [user_id, title, author, content]);
+        const { title, author, content, user_id, link } = data;
+        let response = await db.query("INSERT INTO book (user_id, title, author, content, link) VALUES ($1, $2, $3, $4) RETURNING post_id;",
+            [user_id, title, author, content, link]);
             // console.log("User ID:", userId);
 
         const newId = response.rows[0].post_id
