@@ -11,8 +11,8 @@ describe('api server', () => {
   // })
 
   beforeAll(() => {
-    api = app.listen(3000, () => {
-      console.log('Test server running on port 3000')
+    api = app.listen(9000, () => {
+      console.log('Test server running on port 9000')
     })
   })
 
@@ -32,7 +32,7 @@ describe('api server', () => {
     expect(response.statusCode).toBe(200)
   })
 
-  // As a user I can see all the goats
+
   test('responds to GET /post with a 200 status code', (done) => {
     request(api).get('/posts').expect(200, done)
   })
@@ -44,7 +44,7 @@ describe('api server', () => {
   test('responds to GET /books with a 200 status code', (done) => {
     request(api).get('/books').expect(200, done)
   })
-  // As a user I can see one goat
+
   test('responds to GET /posts/:id with a 200', (done) => {
     request(api).get('/post/1').expect(200, done)
   })
@@ -72,7 +72,7 @@ describe('api server', () => {
       .expect(404)
   })
 
-  // As a user I can delete a goat
+
   test('responds to DELETE /posts/:id with status 204', (done) => {
     request(api).delete('/post/1').expect(204, done)
   })

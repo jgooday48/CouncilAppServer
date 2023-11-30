@@ -72,16 +72,16 @@ describe('share controller', () => {
       describe('create', () => {
 
         test('it returns a new dog with a 201 status code', async () => {
-          let testGoat = { name: 'Test Dog', age: 2 }
-          const mockReq = { body: testGoat }
+          let testShare = { name: 'Test Dog', age: 2 }
+          const mockReq = { body: testShare }
     
           jest.spyOn(Share, 'create')
-            .mockResolvedValue(new Share(testGoat))
+            .mockResolvedValue(new Share(testShare))
     
           await shareController.create(mockReq, mockRes)
           expect(Share.create).toHaveBeenCalledTimes(1)
           expect(mockStatus).toHaveBeenCalledWith(201)
-          expect(mockSend).toHaveBeenCalledWith({ data: new Goat({ ...testGoat }) })
+          expect(mockSend).toHaveBeenCalledWith({ data: new Share({ ...testShare }) })
         })
 
         test('it returns an error', async () => {
@@ -105,7 +105,7 @@ describe('share controller', () => {
             const mockReq = { params: { id: 22 }, body: { name: 'plum' } }
       
             jest.spyOn(Share.prototype, 'update')
-              .mockResolvedValue({ ...new Share(testGoat), name: 'plum' })
+              .mockResolvedValue({ ...new Share(testShare), name: 'plum' })
       
             await shareController.update(mockReq, mockRes)
       
@@ -119,12 +119,12 @@ describe('share controller', () => {
       
         describe('destroy', () => {
           it('returns a 204 status code on successful deletion', async () => {
-            const testGoat = { id: 1, name: 'Test goat', age: 22 }
+            const testShare = { id: 1, title: 'Test', description: 'gsdfj' }
             jest.spyOn(Share, 'getOneById')
-              .mockResolvedValue(new Share(testGoat))
+              .mockResolvedValue(new Share(testShare))
       
             jest.spyOn(Share.prototype, 'destroy')
-              .mockResolvedValue(new Share(testGoat))
+              .mockResolvedValue(new Share(testShare))
       
             const mockReq = { params: { id: 1 } }
             await shareController.destroy(mockReq, mockRes)
@@ -135,11 +135,11 @@ describe('share controller', () => {
             expect(mockEnd).toHaveBeenCalledWith()
           })
       
-          it('calls goat.destroy()', async () => {
+          it('throws an error if post doesnt exist', async () => {
             const mockReq = { params: { id: 49 } }
       
             jest.spyOn(Share, 'getOneById')
-              .mockRejectedValue(new Error('goat not found'))
+              .mockRejectedValue(new Error('post not found'))
       
             await shareController.destroy(mockReq, mockRes)
             expect(mockStatus).toHaveBeenCalledWith(404)

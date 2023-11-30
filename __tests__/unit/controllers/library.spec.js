@@ -86,7 +86,7 @@ describe('book controller', () => {
               .mockRejectedValue(new Error('oh no'))
       
             await bookController.create(mockReq, mockRes)
-            expect(Book.create).toHaveBeenCalledTimes(1)
+            expect(Book.prototype.create).toHaveBeenCalledTimes(1)
             expect(mockStatus).toHaveBeenCalledWith(400)
           })
         })

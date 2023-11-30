@@ -77,14 +77,14 @@ describe('Token', () => {
 
   describe('create', () => {
     it('resolves with token on successful db query', async () => {
-      let goatData = { user_id:1,title: 'plum', content: 'ggrg' }
+      let tokenData = { user_id:1,title: 'plum', content: 'ggrg' }
       jest.spyOn(db, 'query')
       .mockResolvedValueOnce({ rows: [] })
       
       jest.spyOn(db, 'query')
-      .mockResolvedValueOnce({ rows: [{ ...goatData, id: 1 }] })
+      .mockResolvedValueOnce({ rows: [{ ...tokenData, id: 1 }] })
       
-      const result = await Token.create(goatData)
+      const result = await Token.create(tokenData)
       expect(result).toBeTruthy()
       expect(result).toHaveProperty('token')
 

@@ -61,15 +61,15 @@ describe('Book', () => {
     
 
       describe('create', () => {
-        it('resolves with goat on successful db query', async () => {
-          let goatData = { user_id:1,title: 'plum', content: 'ggrg' }
+        it('resolves with book on successful db query', async () => {
+          let bookData = { user_id:1,title: 'plum', content: 'ggrg' }
           jest.spyOn(db, 'query')
             .mockResolvedValueOnce({ rows: [] })
     
           jest.spyOn(db, 'query')
-            .mockResolvedValueOnce({ rows: [{ ...goatData, id: 1 }] })
+            .mockResolvedValueOnce({ rows: [{ ...bookData, id: 1 }] })
     
-          const result = await Book.create(goatData)
+          const result = await Book.create(bookData)
           expect(result).toBeTruthy()
           expect(result).toHaveProperty('id')
           expect(result).toHaveProperty('name')
