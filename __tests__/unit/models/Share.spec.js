@@ -35,6 +35,44 @@ describe('Share', () => {
           }
         })
       })
+
+      describe('getOneById', () => {
+        it('resolves with user on successful db query', async () => {
+          let testUser = { post_id:1,user_id: 1, title: 'test', content: 'test' }
+          jest.spyOn(db, 'query')
+            .mockResolvedValueOnce({ rows: [testUser] })
+    
+          const result = await Share.getOneById(1)
+          expect(result).toBeInstanceOf(Share)
+          expect(result.title).toBe('test')
+          expect(result.id).toBe(1)
+        })
+    
+        it('should throw an Error on db query error', async () => {
+          jest.spyOn(db, 'query').mockRejectedValue({ post_id:1,user_id: 1, title: 'test', content: 'test' })
+    
+          try {
+            await Share.findById(70)
+          } catch (error) {
+            expect(error).toBeTruthy()
+          }
+        })
+      })
+    
+      describe('create', () => {
+
+    
+        it('should throw an Error on db query error', async () => {
+    
+          try {
+            await Share.create({ title: "craft" })
+          } catch (error) {
+            expect(error).toBeTruthy()
+            // expect(error.message).toBe('age is missing')
+          }
+        })
+      })
+    
     
       describe('destroy', () => {
     
@@ -43,7 +81,7 @@ describe('Share', () => {
             .mockResolvedValueOnce({ rows: [{}, {}] })
     
           try {
-            const post = new Share({ title: 'test', content: 'grrgrg'})
+            const post = new Share({ post_id:2, user_id:2, title: 'test', content: 'grrgrg'})
             await post.destroy({ id: 72 })
           } catch (error) {
             expect(error).toBeTruthy()

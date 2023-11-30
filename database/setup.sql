@@ -1,8 +1,11 @@
+
 DROP TABLE IF EXISTS share;
 DROP TABLE IF EXISTS book;
 DROP TABLE IF EXISTS marketplace_posts;
 DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS user_account;
+
+
 
 
 CREATE TABLE user_account (
