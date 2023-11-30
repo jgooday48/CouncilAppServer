@@ -40,7 +40,7 @@ describe('Token', () => {
     it('resolves with token on successful db query', async () => {
       let testShare = { token_id:1 ,user_id: 1, token: '&gjhegjfv' }
       jest.spyOn(db, 'query')
-        .mockResolvedValueOnce({ rows: [testShare] })
+        .mockResolvedValue({ rows: [testShare] })
 
       const result = await Token.getOneById(1)
       expect(result).toBeInstanceOf(Token)
@@ -64,19 +64,43 @@ describe('Token', () => {
 
   describe('getOneByToken', () => {
     it('resolves with token on successful db query', async () => {
-      let testShare = { token_id:1 ,user_id: 1, token: '&gjhegjfv' }
+      let testShare = { token_id:1 ,user_id: 1, token: 'token' }
       jest.spyOn(db, 'query')
-        .mockResolvedValueOnce({ rows: [testShare] })
+        .mockResolvedValue({ rows: [testShare] })
 
-      const result = await Token.getOneByToken('&gjhegjfv')
+      const result = await Token.getOneByToken('token')
       expect(result).toBeInstanceOf(Token)
-      // expect(result.name).toBe('post')
       expect(result.token_id).toBe(1)
     })
 
   })
 
+  describe('create', () => {
+    it('resolves with token on successful db query', async () => {
+      let goatData = { user_id:1,title: 'plum', content: 'ggrg' }
+      jest.spyOn(db, 'query')
+      .mockResolvedValueOnce({ rows: [] })
+      
+      jest.spyOn(db, 'query')
+      .mockResolvedValueOnce({ rows: [{ ...goatData, id: 1 }] })
+      
+      const result = await Token.create(goatData)
+      expect(result).toBeTruthy()
+      expect(result).toHaveProperty('token')
 
+    })
+    
+    it('should throw an Error on db query error', async () => {
+
+      try {
+        await Token.create({ title: "craft" })
+      } catch (error) {
+        expect(error).toBeTruthy()
+        // expect(error.message).toBe('age is missing')
+      }
+    })
+
+  })
 
     describe('destroy', () => {
       it('destroys a token', async () => {

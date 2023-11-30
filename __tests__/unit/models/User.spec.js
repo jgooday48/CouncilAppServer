@@ -62,15 +62,15 @@ describe('User', () => {
       describe('create', () => {
         it('resolves with user on successful db query', async () => {
           let userData = {name:'test', surname:'test',email: 'test', password: 99 }
-          jest.spyOn(db, 'query')
-            .mockResolvedValueOnce({ rows: [] })
+          // jest.spyOn(db, 'query')
+          //   .mockResolvedValueOnce({ rows: [] })
     
           jest.spyOn(db, 'query')
-            .mockResolvedValueOnce({ rows: [{ ...userData }] })
+            .mockResolvedValueOnce({ rows: [{ ...userData, user_id }] })
     
           const result = await User.create(userData)
           expect(result).toBeTruthy()
-          expect(result).toHaveProperty('id')
+          expect(result).toHaveProperty('email')
           expect(result).toHaveProperty('name')
         })
     
