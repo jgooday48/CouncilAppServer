@@ -41,8 +41,9 @@ CREATE TABLE book (
     post_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     title VARCHAR(50) NOT NULL,
-    Author VARCHAR(50) NOT NULL,
+    author VARCHAR(50) NOT NULL,
     content VARCHAR(100000) NOT NULL,
+    link VARCHAR(200),
     PRIMARY KEY (post_id),
     FOREIGN KEY (user_id) REFERENCES user_account("user_id")
 );
@@ -71,8 +72,8 @@ VALUES
     ('Bike for Sale', 2, 'Like new', 'Mountain bike, 21 gears', '456 Maple Avenue, Florin', 250.50),
     ('Part-time Job: Tutoring', 3, 'Flexible hours', 'Math and Science tutoring services', '789 Pine Street, Florin', 30.00);
 
-INSERT INTO book (user_id, author, title, content)
+INSERT INTO book (user_id, author, title, content, link)
 VALUES
-    (1, 'password123', 'John', 'Doe'),
-    (2, 'securePass', 'Alice', 'Smith'),
-    (3, 'mySecretPwd', 'Bob', 'Johnson');
+    (1, 'password123', 'John', 'Doe', ''),
+    (2, 'securePass', 'Alice', 'Smith', ''),
+    (3, 'mySecretPwd', 'Bob', 'Johnson', '');
