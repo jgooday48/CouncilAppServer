@@ -44,10 +44,10 @@ async function update(req, res) {
         const user = await User.getOneById(token.user_id);
         const book = await Book.getOneById(id);
 
-        console.log('post.user_id:', book.user_id);
+        console.log('book.user_id:', book.user_id);
         console.log('user.id:', user.id);
 
-        if (post.user_id === user.id) {
+        if (book.user_id === user.id) {
             const postToUpdate = await Book.getOneById(id)
             console.log('Updating post:', postToUpdate);
 
