@@ -21,14 +21,14 @@ version: '3.8'
 services:
   db:
     image: postgres
-    container_name: goats
+    container_name: council
     ports:
       - 5432:5432
     volumes:
-      - goats_db:/var/lib/postgresql/data
+      - council_db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=goats
-      - POSTGRES_USER=romeo
+      - POSTGRES_DB=council
+      - POSTGRES_USER=joel
       - POSTGRES_PASSWORD=jkljkl
 
   testing_db:
@@ -45,7 +45,7 @@ services:
       - POSTGRES_PASSWORD=jkljkl
 
 volumes:
-  goats_db:
+  council_db:
   test_db:
 
     # DB_URL=postgres://romeo:jkljkl@localhost:5432/goats

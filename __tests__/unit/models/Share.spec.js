@@ -63,15 +63,15 @@ describe('Share', () => {
       
       describe('create', () => {
         it('resolves with post on successful db query', async () => {
-          let goatData = { user_id:1, title: 'test', content: 'ggrg' }
+          let shareData = { user_id:1, title: 'test', content: 'ggrg' }
           jest.spyOn(db, 'query')
           .mockResolvedValueOnce({ rows: [] })
           
           
           jest.spyOn(db, 'query')
-          .mockResolvedValueOnce({ rows: [{ ...goatData, post_id: 1 }] })
+          .mockResolvedValueOnce({ rows: [{ ...shareData, post_id: 1 }] })
           
-          const result = await Share.create(goatData)
+          const result = await Share.create(shareData)
           expect(result).toBeTruthy()
           expect(result).toHaveProperty('title')
           expect(result).toHaveProperty('content')
