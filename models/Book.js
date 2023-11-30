@@ -28,7 +28,7 @@ class Book {
 
     static async create(data) {
         const { title, author, content, user_id, link } = data;
-        let response = await db.query("INSERT INTO book (user_id, title, author, content, link) VALUES ($1, $2, $3, $4) RETURNING post_id;",
+        let response = await db.query("INSERT INTO book (user_id, title, author, content, link) VALUES ($1, $2, $3, $4, $5) RETURNING post_id;",
             [user_id, title, author, content, link]);
             // console.log("User ID:", userId);
 
