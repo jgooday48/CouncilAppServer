@@ -48,6 +48,19 @@ describe('Token', () => {
       // expect(result.post_id).toBe(1)
     })
 
+    it('throws an error', async () => {
+      jest.spyOn(db, 'query')
+      .mockResolvedValueOnce({ rows: [] })
+
+    try {
+      await Token.getAll()
+    } catch (err) {
+      expect(err).toBeDefined()
+    }
+
+
+    })
+
   })
 
   describe('getOneByToken', () => {
