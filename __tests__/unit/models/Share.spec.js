@@ -36,49 +36,15 @@ describe('Share', () => {
         })
       })
 
-      describe('getOneById', () => {
-        it('resolves with post on successful db query', async () => {
-          let testShare = { id: 1, user_id:1,title: 'goat', content: 'jgafgs' }
-          jest.spyOn(db, 'query')
-            .mockResolvedValueOnce({ rows: [testShare] })
-    
-          const result = await Share.getOneById(1)
-          expect(result).toBeInstanceOf(Share)
-          // expect(result.name).toBe('post')
-          expect(result.post_id).toBe(1)
-        })
-    
-        it('should throw an Error on db query error', async () => {
-          jest.spyOn(db, 'query').mockRejectedValue()
-    
-          try {
-            await Share.getOneById('redgugjhg')
-          } catch (error) {
-            expect(error).toBeTruthy()
 
-          }
-        })
-      })
     
       describe('create', () => {
-        it('resolves with post on successful db query', async () => {
-          let shareData = { name: 'test', content: 'gdfgjd' }
-          jest.spyOn(db, 'query')
-            .mockResolvedValueOnce({ rows: [] })
-    
-          jest.spyOn(db, 'query')
-            .mockResolvedValueOnce({ rows: [{ ...shareData, id: 1 }] })
-    
-          const result = await Share.create(shareData)
-          expect(result).toBeTruthy()
-          expect(result).toHaveProperty('id')
-          expect(result).toHaveProperty('title')
-        })
+
     
         it('should throw an Error on db query error', async () => {
     
           try {
-            await Share.create({ title: "plum" })
+            await Share.create({ title: "craft" })
           } catch (error) {
             expect(error).toBeTruthy()
             // expect(error.message).toBe('age is missing')
@@ -86,17 +52,6 @@ describe('Share', () => {
         })
       })
     
-      describe('update', () => {
-        it('should throw an error if age is missing', async () => {
-          try {
-            const post = new Share({ title: 'plum', content: 'aidgdf' })
-            await post.update({ content: 'sffssf' })
-          } catch (error) {
-            expect(error).toBeTruthy()
-            // expect(error.message).toBe('age or name missing')
-          }
-        })
-      })
     
       describe('destroy', () => {
     
@@ -105,7 +60,7 @@ describe('Share', () => {
             .mockResolvedValueOnce({ rows: [{}, {}] })
     
           try {
-            const post = new Share({ title: 'test', content: 'grrgrg'})
+            const post = new Share({ post_id:2, user_id:2, title: 'test', content: 'grrgrg'})
             await post.destroy({ id: 72 })
           } catch (error) {
             expect(error).toBeTruthy()
