@@ -1,17 +1,52 @@
-version: '3'
+# version: '3'
+# services:
+#   db:
+#     image: postgres
+#     container_name: council_api
+#     ports:
+#       - 5432:5432
+#     environment: 
+#       - POSTGRES_DB=council
+#       - POSTGRES_USER=admin
+#       - POSTGRES_PASSWORD=jkljkl
+#     volumes:
+#       - dbdata:/var/lib/postgresql/data
+
+# volumes:
+#   dbdata:
+#     name: api_pg_vol
+
+
+version: '3.8'
 services:
   db:
     image: postgres
-    container_name: council_api
+    container_name: council
     ports:
       - 5432:5432
-    environment: 
-      - POSTGRES_DB=council
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=jkljkl
     volumes:
-      - dbdata:/var/lib/postgresql/data
+      - council_db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=council
+      - POSTGRES_USER=joel
+      - POSTGRES_PASSWORD=jkljkl
+
+  testing_db:
+    image: postgres
+    container_name: testing
+    ports:
+      - 5433:5432
+    volumes:
+      - test_db:/var/lib/postgresql/data
+      - ./server/database/:/docker-entrypoint-initdb.d/:ro
+    environment:
+      - POSTGRES_DB=testing
+      - POSTGRES_USER=testing
+      - POSTGRES_PASSWORD=jkljkl
 
 volumes:
-  dbdata:
-    name: api_pg_vol
+  council_db:
+  test_db:
+
+    # DB_URL=postgres://romeo:jkljkl@localhost:5432/goats
+    # DB_TEST_URL=postgres://testing:jkljkl@localhost:5433/testing

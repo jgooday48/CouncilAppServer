@@ -18,14 +18,6 @@ class Post {
         return response.rows.map(g => new Post(g));
     }
 
-    static async getTopSnack() {
-        const response = await db.query("SELECT * FROM marketplace_posts ORDER BY description DESC LIMIT 1;");
-        if (response.rows.length != 1) {
-            throw new Error("Unable to locate snack.")
-        }
-        return new Post(response.rows[0]);
-    }
-
     static async getOneById(post_id) {
         const response = await db.query("SELECT * FROM marketplace_posts WHERE post_id = $1;",[post_id]);
 

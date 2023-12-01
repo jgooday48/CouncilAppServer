@@ -30,8 +30,10 @@ class Share {
             [ user_id,title, content]);
             // console.log("User ID:", userId);
 
+        
+
         const newId = response.rows[0].post_id
-        const newPost = await Post.getOneById(newId)
+        const newPost = await Share.getOneById(newId)
             
         return newPost;
     }
